@@ -8,6 +8,7 @@ import lv.psoft.training.bookstore.repositories.UserRepository;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class CreateUsers implements CommandLineRunner {
                 };
                 InputStream inputStream = getClass().getResourceAsStream("/data/users/users.json");
                 List<User> users = mapper.readValue(inputStream, typeReference);
-                users.stream().forEach((user) ->  {
+                users.stream().forEach((user) -> {
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
                     user.addRole(customer);
                     userRepository.save(user);
